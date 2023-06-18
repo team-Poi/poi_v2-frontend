@@ -72,6 +72,14 @@ export default function Features() {
               </Saero>
             </Link>
           </Flex>
+          <Flex>
+            <Link href={"/qrcode"} style={{ textDecoration: "none" }}>
+              <Saero className={classNames(common.centerFlex, styles.feature)}>
+                <Icon icon="qr_code_2" animated size={48} />
+                <h3>Share with QR Code</h3>
+              </Saero>
+            </Link>
+          </Flex>
         </Garo>
       </Saero>
     </Conatiner>

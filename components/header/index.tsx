@@ -14,9 +14,12 @@ export default function Header(props: HeaderProps) {
       <Icon
         animated
         icon={
-          { URL: "link", TEXT: "description", CUSTOM: "settings_suggest" }[
-            props.type || "URL"
-          ]
+          {
+            URL: "link",
+            TEXT: "description",
+            CUSTOM: "settings_suggest",
+            QRCODE: "qr_code_2",
+          }[props.type || "URL"]
         }
         className={styles.logo}
         style={{

@@ -1,3 +1,3 @@
-type HomeType = "URL" | "CUSTOM" | "TEXT";
+type HomeType = "URL" | "CUSTOM" | "TEXT" | "QRCODE";
 
 export default HomeType;

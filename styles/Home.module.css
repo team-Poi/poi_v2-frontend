@@ -52,6 +52,13 @@
   animation: fadein 1s;
 }
 
+.successContainer > div:nth-child(4) {
+  width: 90%;
+  box-sizing: border-box;
+  margin-top: -5px;
+  animation: fadein 1.3s;
+}
+
 .successContainer > div:nth-child(2) > div {
   padding-top: 15px !important;
 }
@@ -93,4 +100,24 @@
   color: black;
   border-color: black;
   background-color: white;
+}
+
+.cinput {
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  padding: 0;
+  width: 4rem;
+  height: 4rem;
+}
+
+.cst {
+  border: 2px solid black;
+  box-shadow: 6px 6px 0 var(--POI-UI-INFO);
+  padding: 5px;
+  border-radius: 5px;
+  margin: 16px 0px;
 }

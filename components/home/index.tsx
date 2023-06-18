@@ -76,6 +76,7 @@ const Editor = dynamic(() => import("./../Editor/index"), {
   },
 });
 
+import { QRCodeCanvas } from "qrcode.react";
 import classNames from "@team.poi/ui/dist/cjs/utils/classNames";
 import { useModal } from "@team.poi/ui/dist/cjs/hooks/Modal";
 import common from "./../../styles/common.module.css";
@@ -301,6 +302,10 @@ export default function Home(props: { type: HomeType }) {
     },
   ];
 
+  const INPUT_SUPPORTS = ["URL", "CUSTOM", "QRCODE"];
+  const URL_INPUT_THINGS = ["URL", "CUSTOM", "QRCODE"];
+  const LIMIT_USAGES = ["URL", "CUSTOM", "TEXT"];
+
   const loader = (data?: string) => {
     return addModal.modal({
       canExit: false,
@@ -326,14 +331,135 @@ export default function Home(props: { type: HomeType }) {
       },
     });
   };
+  const qrcoder = () => {
+    addModal.modal({
+      canExit: true,
+      RenderChildren: ({ close }) => {
+        let [bg, setBg] = useState("#ffffff");
+        let [fg, setFg] = useState("#000000");
+        return (
+          <Saero
+            style={{
+              padding: "2rem 0px",
+            }}
+            gap={12}
+            className={classNames(
+              styles.successContainer,
+              common.centerFlex,
+              common.w100
+            )}
+          >
+            <Icon
+              style={{
+                color: "var(--POI-UI-SUCCESS)",
+              }}
+              icon="check_circle"
+              size={64}
+              animated
+              className={styles.success}
+            />
+            <Garo
+              className={classNames(common.w100, common.centerFlex)}
+              gap={16}
+            >
+              <Flex
+                className={classNames(common.centerFlex)}
+                style={{
+                  display: "flex",
+                }}
+              >
+                <Saero className={classNames(common.centerFlex, styles.cst)}>
+                  <input
+                    type="color"
+                    className={styles.cinput}
+                    value={bg}
+                    onChange={(e) => setBg(e.target.value)}
+                  />
+                  <div>BACKGROUND</div>
+                </Saero>
+              </Flex>
+              <Flex
+                className={classNames(common.centerFlex)}
+                style={{
+                  display: "flex",
+                }}
+              >
+                <Saero className={classNames(common.centerFlex, styles.cst)}>
+                  <input
+                    type="color"
+                    className={styles.cinput}
+                    value={fg}
+                    onChange={(e) => setFg(e.target.value)}
+                  />
+                  <div>FOREGROUND</div>
+                </Saero>
+              </Flex>
+            </Garo>
+            <Garo className={classNames(common.w100, common.centerFlex)}>
+              <QRCodeCanvas
+                bgColor={bg}
+                fgColor={fg}
+                value={input}
+                size={1024}
+                includeMargin
+                id="qrcanvas"
+                style={{
+                  width: "128px",
+                  height: "128px",
+                  borderRadius: "5px",
+                  border: "2px solid black",
+                  boxShadow: "7px 7px 0px var(--POI-UI-WARNING)",
+                }}
+              />
+            </Garo>
+            <Garo
+              className={styles.buttons}
+              gap={4}
+              style={{
+                width: "90%",
+                marginTop: "2rem",
+              }}
+            >
+              <Flex>
+                <Button
+                  className={common.w100}
+                  color="SUCCESS"
+                  onClick={() => {
+                    let canvasEl = document.getElementById(
+                      "qrcanvas"
+                    ) as HTMLCanvasElement;
+
+                    if (!canvasEl) return;
+                    let a = document.createElement("a");
+                    a.download = "qrcode.png";
+                    a.href = canvasEl.toDataURL("image/png");
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                  }}
+                >
+                  Download
+                </Button>
+              </Flex>
+              <Flex>
+                <Button className={common.w100} color="ERROR" onClick={close}>
+                  Close
+                </Button>
+              </Flex>
+            </Garo>
+          </Saero>
+        );
+      },
+    });
+  };
   const buttonHandler = () => {
-    if (!ableTimes.includes(expireAfter))
+    if (LIMIT_USAGES.includes(props.type) && !ableTimes.includes(expireAfter))
       return openError("Please choose a valid expire time");
-    if (!ableUsages.includes(maxUsage))
+    if (LIMIT_USAGES.includes(props.type) && !ableUsages.includes(maxUsage))
       return openError("Please choose a valid max usage");
 
     if (
-      (props.type == "URL" || props.type == "CUSTOM") &&
+      URL_INPUT_THINGS.includes(props.type) &&
       !isURL(input, {
         allow_trailing_dot: false,
         protocols: ["http", "https"],
@@ -369,6 +495,7 @@ export default function Home(props: { type: HomeType }) {
         return openError("Text html cannot be more than 32768 characters.");
       return loader(input);
     }
+    if (props.type == "QRCODE") return qrcoder();
   };
   const TitleElement = () => {
     if (props.type == "CUSTOM")
@@ -395,12 +522,116 @@ export default function Home(props: { type: HomeType }) {
   const InputPlaceholder = () => {
     if (props.type == "CUSTOM") return "Not customized Link";
     if (props.type == "URL") return "Loooong Link";
+    if (props.type == "QRCODE") return "Not QR Coded Link";
   };
   const ButtonText = () => {
     if (props.type == "URL") return "Shorten";
     if (props.type == "CUSTOM") return "Customize";
     if (props.type == "TEXT") return "Share";
+    if (props.type == "QRCODE") return "QR Code it";
   };
+  const KorEngUsage = () => (
+    <Garo gap={7} className={classNames(common.w100, common.centerFlex)}>
+      {["URL", "TEXT"].includes(props.type) && (
+        <Flex>
+          <Garo
+            gap={7}
+            className={classNames(styles.optionContainers, common.centerFlex)}
+          >
+            <div>KOR</div>
+            <div
+              style={{
+                minWidth: "2.45rem",
+              }}
+            >
+              <Switch
+                value={isEng}
+                onChange={setIsEng}
+                style={{
+                  width: "100%",
+                }}
+              />
+            </div>
+            <div>ENG</div>
+          </Garo>
+        </Flex>
+      )}
+      <Flex>
+        <Garo
+          gap={7}
+          className={classNames(styles.optionContainers, common.centerFlex)}
+        >
+          <div>Usage</div>
+          <div
+            style={{
+              minWidth: "3rem",
+            }}
+          >
+            <select
+              className={styles.select}
+              value={maxUsage}
+              onChange={(e) => setMaxUsage(parseInt(e.target.value || "1"))}
+            >
+              <option value={1}>Once</option>
+              <option value={2}>2 Times</option>
+              <option value={5}>5 Times</option>
+              <option value={10}>10 Times</option>
+              <option value={50}>50 Times</option>
+              <option value={100}>100 Times</option>
+              <option value={500}>500 Times</option>
+              <option value={-1}>Unlimited</option>
+            </select>
+          </div>
+        </Garo>
+      </Flex>
+    </Garo>
+  );
+  const ExpiresAfter = () => (
+    <Garo gap={7} className={classNames(common.w100, common.centerFlex)}>
+      <Flex>
+        <Garo
+          gap={7}
+          className={classNames(styles.optionContainers, common.centerFlex)}
+        >
+          <div>Expires after</div>
+          <div
+            style={{
+              minWidth: "3rem",
+            }}
+          >
+            <select
+              className={styles.select}
+              value={expireAfter}
+              onChange={(e) => setExpireAfter(parseInt(e.target.value || "1"))}
+            >
+              <option value={60}>60 Seconds</option>
+              <option value={120}>2 Minuites</option>
+              <option value={180}>3 Minuites</option>
+              <option value={300}>5 Minuites</option>
+              <option value={600}>10 Minuites</option>
+              <option value={1800}>30 Minuites</option>
+              <option value={3600}>1 Hour</option>
+              <option value={3600 * 2}>2 Hours</option>
+              <option value={3600 * 3}>3 Hours</option>
+              <option value={3600 * 5}>5 Hours</option>
+              <option value={3600 * 12}>12 Hours</option>
+              <option value={86400}>1 Day</option>
+              <option value={86400 * 2}>2 Days</option>
+              <option value={86400 * 3}>3 Days</option>
+              <option value={86400 * 5}>5 Days</option>
+              <option value={86400 * 7}>1 Week</option>
+              <option value={86400 * 7 * 2}>2 Weeks</option>
+              <option value={86400 * 7 * 3}>3 Weeks</option>
+              <option value={86400 * 30}>1 Month (30 Days)</option>
+              <option value={86400 * 92}>3 Months (92 Days)</option>
+              <option value={86400 * 152}>5 Months (152 Days)</option>
+              <option value={86400 * 365}>1 Year (365 Days)</option>
+            </select>
+          </div>
+        </Garo>
+      </Flex>
+    </Garo>
+  );
 
   return (
     <>
@@ -408,6 +639,7 @@ export default function Home(props: { type: HomeType }) {
       <Conatiner>
         <Saero gap={5}>
           <TitleElement />
+          {/* Input / Button */}
           <Garo
             gap={8}
             style={{
@@ -419,7 +651,7 @@ export default function Home(props: { type: HomeType }) {
             )}
           >
             <FullFlex className={styles.input}>
-              {["CUSTOM", "URL"].includes(props.type) ? (
+              {INPUT_SUPPORTS.includes(props.type) ? (
                 <Input
                   value={input}
                   onChange={(e) =>
@@ -485,117 +717,15 @@ export default function Home(props: { type: HomeType }) {
               </div>
             </Saero>
           </Garo>
-          <Garo gap={7} className={classNames(common.w100, common.centerFlex)}>
-            {["URL", "TEXT"].includes(props.type) && (
-              <Flex>
-                <Garo
-                  gap={7}
-                  className={classNames(
-                    styles.optionContainers,
-                    common.centerFlex
-                  )}
-                >
-                  <div>KOR</div>
-                  <div
-                    style={{
-                      minWidth: "2.45rem",
-                    }}
-                  >
-                    <Switch
-                      value={isEng}
-                      onChange={setIsEng}
-                      style={{
-                        width: "100%",
-                      }}
-                    />
-                  </div>
-                  <div>ENG</div>
-                </Garo>
-              </Flex>
-            )}
-            <Flex>
-              <Garo
-                gap={7}
-                className={classNames(
-                  styles.optionContainers,
-                  common.centerFlex
-                )}
-              >
-                <div>Usage</div>
-                <div
-                  style={{
-                    minWidth: "3rem",
-                  }}
-                >
-                  <select
-                    className={styles.select}
-                    value={maxUsage}
-                    onChange={(e) =>
-                      setMaxUsage(parseInt(e.target.value || "1"))
-                    }
-                  >
-                    <option value={1}>Once</option>
-                    <option value={2}>2 Times</option>
-                    <option value={5}>5 Times</option>
-                    <option value={10}>10 Times</option>
-                    <option value={50}>50 Times</option>
-                    <option value={100}>100 Times</option>
-                    <option value={500}>500 Times</option>
-                    <option value={-1}>Unlimited</option>
-                  </select>
-                </div>
-              </Garo>
-            </Flex>
-          </Garo>
-          <Garo gap={7} className={classNames(common.w100, common.centerFlex)}>
-            <Flex>
-              <Garo
-                gap={7}
-                className={classNames(
-                  styles.optionContainers,
-                  common.centerFlex
-                )}
-              >
-                <div>Expires after</div>
-                <div
-                  style={{
-                    minWidth: "3rem",
-                  }}
-                >
-                  <select
-                    className={styles.select}
-                    value={expireAfter}
-                    onChange={(e) =>
-                      setExpireAfter(parseInt(e.target.value || "1"))
-                    }
-                  >
-                    <option value={60}>60 Seconds</option>
-                    <option value={120}>2 Minuites</option>
-                    <option value={180}>3 Minuites</option>
-                    <option value={300}>5 Minuites</option>
-                    <option value={600}>10 Minuites</option>
-                    <option value={1800}>30 Minuites</option>
-                    <option value={3600}>1 Hour</option>
-                    <option value={3600 * 2}>2 Hours</option>
-                    <option value={3600 * 3}>3 Hours</option>
-                    <option value={3600 * 5}>5 Hours</option>
-                    <option value={3600 * 12}>12 Hours</option>
-                    <option value={86400}>1 Day</option>
-                    <option value={86400 * 2}>2 Days</option>
-                    <option value={86400 * 3}>3 Days</option>
-                    <option value={86400 * 5}>5 Days</option>
-                    <option value={86400 * 7}>1 Week</option>
-                    <option value={86400 * 7 * 2}>2 Weeks</option>
-                    <option value={86400 * 7 * 3}>3 Weeks</option>
-                    <option value={86400 * 30}>1 Month (30 Days)</option>
-                    <option value={86400 * 92}>3 Months (92 Days)</option>
-                    <option value={86400 * 152}>5 Months (152 Days)</option>
-                    <option value={86400 * 365}>1 Year (365 Days)</option>
-                  </select>
-                </div>
-              </Garo>
-            </Flex>
-          </Garo>
+
+          {props.type == "QRCODE" ? null : (
+            <>
+              {/* Kor, Eng / Usage */}
+              {/* Expires After */}
+              <KorEngUsage />
+              <ExpiresAfter />
+            </>
+          )}
         </Saero>
       </Conatiner>
     </>
