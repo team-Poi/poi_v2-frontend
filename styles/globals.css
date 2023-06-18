@@ -1,6 +1,7 @@
 body {
   margin: 0px;
   padding: 0px;
+  padding-bottom: 10rem;
 
   font-family: var(--POI-UI-FONT);
 }
