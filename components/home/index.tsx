@@ -84,7 +84,7 @@ import React, { useEffect, useRef, useState } from "react";
 import doCopy from "@/utils/copy";
 import isURL from "validator/lib/isURL";
 import axios from "axios";
-import HomeType from "@/types/homeType";
+import HomeType from "@/@types/homeType";
 import { optCSS } from "@team.poi/ui";
 
 export default function Home(props: { type: HomeType }) {

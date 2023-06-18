@@ -1,6 +1,6 @@
 import { Icon } from "@team.poi/ui";
 import styles from "./style.module.css";
-import HomeType from "@/types/homeType";
+import HomeType from "@/@types/homeType";
 import Link from "next/link";
 
 interface HeaderProps {
