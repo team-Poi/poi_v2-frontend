@@ -111,8 +111,13 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     let data = res.data as {
       s: boolean;
       e: string;
+      r?: string;
       meta?: any;
     };
+    if (data.s === false && typeof data.r === "string")
+      return {
+        redirect: { destination: data.r, permanent: false },
+      };
     return {
       props: { ...data, i: link },
     };
