@@ -375,7 +375,7 @@ export default function Home(props: { type: HomeType }) {
                     value={bg}
                     onChange={(e) => setBg(e.target.value)}
                   />
-                  <div>BACKGROUND</div>
+                  <div>Background</div>
                 </Saero>
               </Flex>
               <Flex
@@ -391,7 +391,7 @@ export default function Home(props: { type: HomeType }) {
                     value={fg}
                     onChange={(e) => setFg(e.target.value)}
                   />
-                  <div>FOREGROUND</div>
+                  <div>Foreground</div>
                 </Saero>
               </Flex>
             </Garo>
