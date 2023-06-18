@@ -91,6 +91,7 @@ export default function Home(props: { type: HomeType }) {
   const [input, setInput] = useState("");
   const [isEng, setIsEng] = useState(false);
   const [useOnce, setUseOnce] = useState(true);
+  const [editorLoading, setEditorLoading] = useState(true);
   const { addModal } = useModal();
   const editorRef = useRef<any>(null);
 
@@ -370,7 +371,7 @@ export default function Home(props: { type: HomeType }) {
     if (props.type == "TEXT")
       return (
         <h1>
-          Share every <span className={common.titleSpan}>Text</span> you have!
+          Share every <span className={common.titleSpan}>Text</span> easily!
         </h1>
       );
     return <h1>What?</h1>;
@@ -384,11 +385,6 @@ export default function Home(props: { type: HomeType }) {
     if (props.type == "CUSTOM") return "Customize";
     if (props.type == "TEXT") return "Share";
   };
-  // const KorEngSwitch = () => {
-  //   return (
-
-  //   );
-  // };
 
   return (
     <>
@@ -422,10 +418,27 @@ export default function Home(props: { type: HomeType }) {
                 />
               ) : null}
               {props.type == "TEXT" ? (
-                <Editor
-                  tinymceScriptSrc={"/tinymce/tinymce/tinymce.min.js"}
-                  onInit={(evt, editor) => (editorRef.current = editor)}
-                />
+                <>
+                  {editorLoading && (
+                    <Saero
+                      className={classNames(common.w100, common.centerFlex)}
+                      style={{
+                        margin: "3rem 0px",
+                      }}
+                      gap={16}
+                    >
+                      <Loading size={64} />
+                      <div>Loading Editor...</div>
+                    </Saero>
+                  )}
+                  <Editor
+                    tinymceScriptSrc={"/tinymce/tinymce/tinymce.min.js"}
+                    onInit={(evt, editor) => {
+                      editorRef.current = editor;
+                      setEditorLoading(false);
+                    }}
+                  />
+                </>
               ) : null}
             </FullFlex>
             <Saero
