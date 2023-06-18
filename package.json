@@ -10,7 +10,6 @@
     "ui": "yarn remove @team.poi/ui; yarn add @team.poi/ui"
   },
   "dependencies": {
-    "@next/bundle-analyzer": "^13.4.6",
     "@team.poi/ui": "^1.19.3",
     "@tinymce/tinymce-react": "^4.3.0",
     "@types/node": "20.3.1",
@@ -25,7 +24,7 @@
     "validator": "^13.9.0"
   },
   "devDependencies": {
-    "@types/": "tinymce/tinymce-react",
+    "@next/bundle-analyzer": "^13.4.6",
     "@types/react": "^18.2.11",
     "@types/validator": "^13.7.17"
   }
