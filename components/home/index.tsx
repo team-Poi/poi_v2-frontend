@@ -517,6 +517,12 @@ export default function Home(props: { type: HomeType }) {
           Share every <span className={common.titleSpan}>Text</span> easily!
         </h1>
       );
+    if (props.type == "QRCODE")
+      return (
+        <h1>
+          Share Links with <span className={common.titleSpan}>QR Code</span>
+        </h1>
+      );
     return <h1>What?</h1>;
   };
   const InputPlaceholder = () => {
