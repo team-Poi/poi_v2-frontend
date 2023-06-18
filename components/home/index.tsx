@@ -408,7 +408,7 @@ export default function Home(props: { type: HomeType }) {
                   height: "128px",
                   borderRadius: "5px",
                   border: "2px solid black",
-                  boxShadow: "7px 7px 0px var(--POI-UI-WARNING)",
+                  boxShadow: ".5rem .5rem .5rem rgba(0,0,0,0.1)",
                 }}
               />
             </Garo>
