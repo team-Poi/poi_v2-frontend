@@ -38,27 +38,42 @@ export default function Features() {
   return (
     <Conatiner>
       <h1>poi.kr&apos;s features</h1>
-      <Garo
-        gap={16}
-        className={classNames(common.centerFlex, common.w100, styles.fea)}
-      >
-        <Flex>
-          <Link href={"/"} style={{ textDecoration: "none" }}>
-            <Saero className={classNames(common.centerFlex, styles.feature)}>
-              <Icon icon="link" animated size={48} className={styles.rot45} />
-              <h3>Shorten Link</h3>
-            </Saero>
-          </Link>
-        </Flex>
-        <Flex>
-          <Link href="/custom" style={{ textDecoration: "none" }}>
-            <Saero className={classNames(common.centerFlex, styles.feature)}>
-              <Icon icon="settings_suggest" animated size={48} />
-              <h3>Customized Path Link</h3>
-            </Saero>
-          </Link>
-        </Flex>
-      </Garo>
+      <Saero gap={24}>
+        <Garo
+          gap={24}
+          className={classNames(common.centerFlex, common.w100, styles.fea)}
+        >
+          <Flex>
+            <Link href={"/"} style={{ textDecoration: "none" }}>
+              <Saero className={classNames(common.centerFlex, styles.feature)}>
+                <Icon icon="link" animated size={48} className={styles.rot45} />
+                <h3>Shorten Link</h3>
+              </Saero>
+            </Link>
+          </Flex>
+          <Flex>
+            <Link href="/custom" style={{ textDecoration: "none" }}>
+              <Saero className={classNames(common.centerFlex, styles.feature)}>
+                <Icon icon="settings_suggest" animated size={48} />
+                <h3>Customized Path Link</h3>
+              </Saero>
+            </Link>
+          </Flex>
+        </Garo>
+        <Garo
+          gap={24}
+          className={classNames(common.centerFlex, common.w100, styles.fea)}
+        >
+          <Flex>
+            <Link href={"/text"} style={{ textDecoration: "none" }}>
+              <Saero className={classNames(common.centerFlex, styles.feature)}>
+                <Icon icon="description" animated size={48} />
+                <h3>Share Text</h3>
+              </Saero>
+            </Link>
+          </Flex>
+        </Garo>
+      </Saero>
     </Conatiner>
   );
 }

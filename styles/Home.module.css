@@ -66,3 +66,23 @@
   background: #f2f2f2;
   color: black;
 }
+
+.text {
+  flex-direction: column !important;
+  row-gap: 4px;
+  width: 100%;
+}
+
+.text > .input {
+  width: 100%;
+  flex-grow: unset;
+}
+
+.text > .buttons {
+  width: 100%;
+}
+
+.text > .buttons > * {
+  flex: unset;
+  flex-grow: unset;
+}

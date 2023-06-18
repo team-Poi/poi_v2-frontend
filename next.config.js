@@ -17,6 +17,10 @@ const nextConfig = {
         destination: `${SERVER_URL}/custom/redirect/:slug`,
       },
       {
+        source: "/t/:slug/raw",
+        destination: `${SERVER_URL}/text/raw/:slug`,
+      },
+      {
         source: "/api/:path*",
         destination: `${SERVER_URL}/:path*`,
       },

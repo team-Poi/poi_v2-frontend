@@ -1,8 +1,11 @@
 import { Icon } from "@team.poi/ui";
 import styles from "./style.module.css";
+import HomeType from "@/types/homeType";
+import Link from "next/link";
 
 interface HeaderProps {
-  type?: "URL" | "IMAGE" | "CUSTOM";
+  type?: HomeType;
+  linked?: string;
 }
 
 export default function Header(props: HeaderProps) {
@@ -11,7 +14,7 @@ export default function Header(props: HeaderProps) {
       <Icon
         animated
         icon={
-          { URL: "link", IMAGE: "image", CUSTOM: "settings_suggest" }[
+          { URL: "link", TEXT: "description", CUSTOM: "settings_suggest" }[
             props.type || "URL"
           ]
         }
@@ -20,7 +23,21 @@ export default function Header(props: HeaderProps) {
           transform: props.type === "URL" ? "rotate(-45deg)" : "",
         }}
       />
-      <div className={styles.title}>poi.kr</div>
+      <div className={styles.title}>
+        {props.linked ? (
+          <Link
+            href={props.linked}
+            style={{
+              textDecoration: "none",
+              color: "white",
+            }}
+          >
+            poi.kr
+          </Link>
+        ) : (
+          <>poi.kr</>
+        )}
+      </div>
     </header>
   );
 }

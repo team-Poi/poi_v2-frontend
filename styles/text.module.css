@@ -1,0 +1,12 @@
+.cont {
+  padding: 8px 24px;
+  border: 1px solid var(--nextui-colors-border);
+  border-radius: 5px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.saero > * {
+  width: 100%;
+  box-sizing: border-box;
+}
