@@ -114,7 +114,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       meta?: any;
     };
     return {
-      props: data,
+      props: { ...data, i: link },
     };
   } catch (e) {
     console.error(e);
