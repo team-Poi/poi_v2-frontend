@@ -1,0 +1,28 @@
+.feature {
+  border: 4px solid black;
+  padding: 8px;
+  border-radius: 16px;
+  box-shadow: 8px 8px 0 var(--POI-UI-PRIMARY);
+  color: black;
+}
+
+.feature > * {
+  text-decoration: none;
+}
+
+.rot45 {
+  transform: rotate(-45deg);
+}
+
+@media (max-width: 525px) {
+  .fea {
+    flex-direction: column !important;
+    row-gap: 16px;
+    width: 100%;
+  }
+
+  .fea > * {
+    width: 100%;
+    box-sizing: border-box;
+  }
+}

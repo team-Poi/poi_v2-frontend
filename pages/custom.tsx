@@ -4,7 +4,7 @@ import Home from "@/components/home";
 export default function Page() {
   return (
     <>
-      <Home />
+      <Home customed />
       <Features />
     </>
   );

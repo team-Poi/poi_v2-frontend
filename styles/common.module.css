@@ -1,0 +1,13 @@
+.titleSpan {
+  border-bottom: var(--POI-UI-INFO) 2px solid;
+  font-family: var(--POI-UI-FONT-BOLD);
+}
+
+.centerFlex {
+  justify-content: center;
+  align-items: center;
+}
+
+.w100 {
+  width: 100%;
+}
