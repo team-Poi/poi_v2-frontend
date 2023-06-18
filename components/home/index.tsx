@@ -82,6 +82,7 @@ import axios from "axios";
 export default function Home(props: { customed?: boolean }) {
   const [input, setInput] = useState("");
   const [isEng, setIsEng] = useState(false);
+  const [useOnce, setUseOnce] = useState(true);
   const { addModal } = useModal();
 
   const openSuccess = (url: string) => {
@@ -180,6 +181,7 @@ export default function Home(props: { customed?: boolean }) {
       .post("/api/url/new", {
         eng: isEng,
         to: input,
+        expire: useOnce,
       })
       .then((v) => {
         let data = v.data as {
@@ -212,6 +214,7 @@ export default function Home(props: { customed?: boolean }) {
         eng: isEng,
         to: input,
         from: data,
+        expire: useOnce,
       })
       .then((v) => {
         let data = v.data as {
@@ -316,7 +319,7 @@ export default function Home(props: { customed?: boolean }) {
     <>
       <Header type={props.customed ? "CUSTOM" : "URL"} />
       <Conatiner>
-        <Saero>
+        <Saero gap={5}>
           {props.customed ? (
             <h1>
               Shorten every <span className={common.titleSpan}>Link</span> with
@@ -375,7 +378,11 @@ export default function Home(props: { customed?: boolean }) {
                   {props.customed ? "Customize" : "Shorten"}
                 </Button>
               </div>
-              {!props.customed && (
+            </Saero>
+          </Garo>
+          <Garo gap={7} className={classNames(common.w100, common.centerFlex)}>
+            {!props.customed && (
+              <Flex>
                 <Garo
                   gap={7}
                   className={classNames(
@@ -383,8 +390,8 @@ export default function Home(props: { customed?: boolean }) {
                     common.centerFlex
                   )}
                 >
-                  <Flex>KOR</Flex>
-                  <FullFlex
+                  <div>KOR</div>
+                  <div
                     style={{
                       minWidth: "3rem",
                     }}
@@ -396,11 +403,41 @@ export default function Home(props: { customed?: boolean }) {
                         width: "100%",
                       }}
                     />
-                  </FullFlex>
-                  <Flex>ENG</Flex>
+                  </div>
+                  <div>ENG</div>
                 </Garo>
-              )}
-            </Saero>
+              </Flex>
+            )}
+            <Flex>
+              <Garo
+                gap={7}
+                className={classNames(
+                  styles.optionContainers,
+                  common.centerFlex
+                )}
+                style={{
+                  padding: "5px",
+                  borderRadius: "5px",
+                  background: "#f2f2f2",
+                  color: "black",
+                }}
+              >
+                <div>Use once</div>
+                <div
+                  style={{
+                    minWidth: "3rem",
+                  }}
+                >
+                  <Switch
+                    style={{
+                      width: "100%",
+                    }}
+                    value={useOnce}
+                    onChange={setUseOnce}
+                  />
+                </div>
+              </Garo>
+            </Flex>
           </Garo>
         </Saero>
       </Conatiner>
