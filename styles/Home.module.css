@@ -86,3 +86,11 @@
   flex: unset;
   flex-grow: unset;
 }
+
+.select {
+  padding: 4px;
+  border-radius: 5px;
+  color: black;
+  border-color: black;
+  background-color: white;
+}

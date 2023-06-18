@@ -1,10 +1,3 @@
-// /api/text/data/:link
-/*
-{
-  s: boolean;
-  e: string;
-}
- */
 import axios from "axios";
 import { GetServerSideProps } from "next";
 import dynamic from "next/dynamic";

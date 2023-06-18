@@ -90,7 +90,8 @@ import { optCSS } from "@team.poi/ui";
 export default function Home(props: { type: HomeType }) {
   const [input, setInput] = useState("");
   const [isEng, setIsEng] = useState(false);
-  const [useOnce, setUseOnce] = useState(true);
+  const [maxUsage, setMaxUsage] = useState(1);
+  const [expireAfter, setExpireAfter] = useState(86400 * 7);
   const [editorLoading, setEditorLoading] = useState(true);
   const { addModal } = useModal();
   const editorRef = useRef<any>(null);
@@ -187,6 +188,13 @@ export default function Home(props: { type: HomeType }) {
   const openerr = (data: string) => setTimeout(openError, 20, data);
   const opensuc = (data: string) => setTimeout(openSuccess, 20, data);
 
+  const ableTimes = [
+    60, 120, 180, 300, 600, 1800, 3600, 7200, 10800, 18000, 43200, 86400,
+    172800, 259200, 432000, 604800, 1209600, 1814400, 2592000, 7948800,
+    13132800, 31536000,
+  ];
+  const ableUsages = [1, 2, 5, 10, 50, 100, 500, -1];
+
   let axioserIndex =
     props.type === "URL"
       ? 0
@@ -202,7 +210,8 @@ export default function Home(props: { type: HomeType }) {
         .post("/api/url/new", {
           eng: isEng,
           to: input,
-          expire: useOnce,
+          usage: maxUsage,
+          expire: expireAfter,
         })
         .then((v) => {
           let data = v.data as {
@@ -233,7 +242,8 @@ export default function Home(props: { type: HomeType }) {
           eng: isEng,
           to: input,
           from: data,
-          expire: useOnce,
+          usage: maxUsage,
+          expire: expireAfter,
         })
         .then((v) => {
           let data = v.data as {
@@ -263,7 +273,8 @@ export default function Home(props: { type: HomeType }) {
         .post("/api/text/new", {
           isEng: isEng,
           text: data,
-          useOnce: useOnce,
+          usage: maxUsage,
+          expire: expireAfter,
         })
         .then((v) => {
           let data = v.data as {
@@ -316,6 +327,11 @@ export default function Home(props: { type: HomeType }) {
     });
   };
   const buttonHandler = () => {
+    if (!ableTimes.includes(expireAfter))
+      return openError("Please choose a valid expire time");
+    if (!ableUsages.includes(maxUsage))
+      return openError("Please choose a valid max usage");
+
     if (
       (props.type == "URL" || props.type == "CUSTOM") &&
       !isURL(input, {
@@ -482,7 +498,7 @@ export default function Home(props: { type: HomeType }) {
                   <div>KOR</div>
                   <div
                     style={{
-                      minWidth: "3rem",
+                      minWidth: "2.45rem",
                     }}
                   >
                     <Switch
@@ -505,19 +521,77 @@ export default function Home(props: { type: HomeType }) {
                   common.centerFlex
                 )}
               >
-                <div>Use once</div>
+                <div>Usage</div>
                 <div
                   style={{
                     minWidth: "3rem",
                   }}
                 >
-                  <Switch
-                    style={{
-                      width: "100%",
-                    }}
-                    value={useOnce}
-                    onChange={setUseOnce}
-                  />
+                  <select
+                    className={styles.select}
+                    value={maxUsage}
+                    onChange={(e) =>
+                      setMaxUsage(parseInt(e.target.value || "1"))
+                    }
+                  >
+                    <option value={1}>Once</option>
+                    <option value={2}>2 Times</option>
+                    <option value={5}>5 Times</option>
+                    <option value={10}>10 Times</option>
+                    <option value={50}>50 Times</option>
+                    <option value={100}>100 Times</option>
+                    <option value={500}>500 Times</option>
+                    <option value={-1}>Unlimited</option>
+                  </select>
+                </div>
+              </Garo>
+            </Flex>
+          </Garo>
+          <Garo gap={7} className={classNames(common.w100, common.centerFlex)}>
+            <Flex>
+              <Garo
+                gap={7}
+                className={classNames(
+                  styles.optionContainers,
+                  common.centerFlex
+                )}
+              >
+                <div>Expires after</div>
+                <div
+                  style={{
+                    minWidth: "3rem",
+                  }}
+                >
+                  <select
+                    className={styles.select}
+                    value={expireAfter}
+                    onChange={(e) =>
+                      setExpireAfter(parseInt(e.target.value || "1"))
+                    }
+                  >
+                    <option value={60}>60 Seconds</option>
+                    <option value={120}>2 Minuites</option>
+                    <option value={180}>3 Minuites</option>
+                    <option value={300}>5 Minuites</option>
+                    <option value={600}>10 Minuites</option>
+                    <option value={1800}>30 Minuites</option>
+                    <option value={3600}>1 Hour</option>
+                    <option value={3600 * 2}>2 Hours</option>
+                    <option value={3600 * 3}>3 Hours</option>
+                    <option value={3600 * 5}>5 Hours</option>
+                    <option value={3600 * 12}>12 Hours</option>
+                    <option value={86400}>1 Day</option>
+                    <option value={86400 * 2}>2 Days</option>
+                    <option value={86400 * 3}>3 Days</option>
+                    <option value={86400 * 5}>5 Days</option>
+                    <option value={86400 * 7}>1 Week</option>
+                    <option value={86400 * 7 * 2}>2 Weeks</option>
+                    <option value={86400 * 7 * 3}>3 Weeks</option>
+                    <option value={86400 * 30}>1 Month (30 Days)</option>
+                    <option value={86400 * 92}>3 Months (92 Days)</option>
+                    <option value={86400 * 152}>5 Months (152 Days)</option>
+                    <option value={86400 * 365}>1 Year (365 Days)</option>
+                  </select>
                 </div>
               </Garo>
             </Flex>
