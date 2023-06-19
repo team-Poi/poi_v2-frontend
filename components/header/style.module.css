@@ -6,6 +6,8 @@
   column-gap: 4px;
 
   align-items: center;
+
+  justify-content: space-between;
 }
 
 .logo {
@@ -42,4 +44,19 @@
   .logo {
     font-size: 48px !important;
   }
+}
+
+.link {
+  box-sizing: content-box;
+  width: 1.5rem;
+  height: 1.5rem;
+  padding: 0.5rem;
+  border-radius: 50%;
+  border: 1px solid black;
+  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.2);
+}
+
+.link > * {
+  width: 100%;
+  height: auto;
 }
