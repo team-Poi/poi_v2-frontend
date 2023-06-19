@@ -76,7 +76,6 @@ const Editor = dynamic(() => import("./../Editor/index"), {
   },
 });
 
-import { QRCodeCanvas } from "qrcode.react";
 import classNames from "@team.poi/ui/dist/cjs/utils/classNames";
 import { useModal } from "@team.poi/ui/dist/cjs/hooks/Modal";
 import common from "./../../styles/common.module.css";
@@ -87,8 +86,10 @@ import isURL from "validator/lib/isURL";
 import axios from "axios";
 import HomeType from "@/@types/homeType";
 import { optCSS } from "@team.poi/ui";
+import { useRouter } from "next/router";
+import qrcoder from "@/utils/qrcoder";
 
-export default function Home(props: { type: HomeType }) {
+export default function Home(props: { type: HomeType; featureType?: string }) {
   const [input, setInput] = useState("");
   const [isEng, setIsEng] = useState(false);
   const [maxUsage, setMaxUsage] = useState(1);
@@ -96,6 +97,7 @@ export default function Home(props: { type: HomeType }) {
   const [editorLoading, setEditorLoading] = useState(true);
   const { addModal } = useModal();
   const editorRef = useRef<any>(null);
+  const router = useRouter();
 
   const openSuccess = (url: string) => {
     addModal.modal({
@@ -129,6 +131,20 @@ export default function Home(props: { type: HomeType }) {
                   Copy
                 </Button>
               </Flex>
+              <Flex>
+                <Button
+                  className={common.w100}
+                  color="SUCCESS"
+                  onClick={() => {
+                    close();
+                    router.push("/share/qrcode?url=" + encodeURI(url));
+                  }}
+                >
+                  QR Code
+                </Button>
+              </Flex>
+            </Garo>
+            <Garo className={styles.buttons} gap={4}>
               <Flex>
                 <Button className={common.w100} color="ERROR" onClick={close}>
                   Close
@@ -331,127 +347,6 @@ export default function Home(props: { type: HomeType }) {
       },
     });
   };
-  const qrcoder = () => {
-    addModal.modal({
-      canExit: true,
-      RenderChildren: ({ close }) => {
-        let [bg, setBg] = useState("#ffffff");
-        let [fg, setFg] = useState("#000000");
-        return (
-          <Saero
-            style={{
-              padding: "2rem 0px",
-            }}
-            gap={12}
-            className={classNames(
-              styles.successContainer,
-              common.centerFlex,
-              common.w100
-            )}
-          >
-            <Icon
-              style={{
-                color: "var(--POI-UI-SUCCESS)",
-              }}
-              icon="check_circle"
-              size={64}
-              animated
-              className={styles.success}
-            />
-            <Garo
-              className={classNames(common.w100, common.centerFlex)}
-              gap={16}
-            >
-              <Flex
-                className={classNames(common.centerFlex)}
-                style={{
-                  display: "flex",
-                }}
-              >
-                <Saero className={classNames(common.centerFlex, styles.cst)}>
-                  <input
-                    type="color"
-                    className={styles.cinput}
-                    value={bg}
-                    onChange={(e) => setBg(e.target.value)}
-                  />
-                  <div>Background</div>
-                </Saero>
-              </Flex>
-              <Flex
-                className={classNames(common.centerFlex)}
-                style={{
-                  display: "flex",
-                }}
-              >
-                <Saero className={classNames(common.centerFlex, styles.cst)}>
-                  <input
-                    type="color"
-                    className={styles.cinput}
-                    value={fg}
-                    onChange={(e) => setFg(e.target.value)}
-                  />
-                  <div>Foreground</div>
-                </Saero>
-              </Flex>
-            </Garo>
-            <Garo className={classNames(common.w100, common.centerFlex)}>
-              <QRCodeCanvas
-                bgColor={bg}
-                fgColor={fg}
-                value={input}
-                size={1024}
-                includeMargin
-                id="qrcanvas"
-                style={{
-                  width: "128px",
-                  height: "128px",
-                  borderRadius: "5px",
-                  border: "2px solid black",
-                  boxShadow: ".5rem .5rem .5rem rgba(0,0,0,0.1)",
-                }}
-              />
-            </Garo>
-            <Garo
-              className={styles.buttons}
-              gap={4}
-              style={{
-                width: "90%",
-                marginTop: "2rem",
-              }}
-            >
-              <Flex>
-                <Button
-                  className={common.w100}
-                  color="SUCCESS"
-                  onClick={() => {
-                    let canvasEl = document.getElementById(
-                      "qrcanvas"
-                    ) as HTMLCanvasElement;
-
-                    if (!canvasEl) return;
-                    let a = document.createElement("a");
-                    a.download = "qrcode.png";
-                    a.href = canvasEl.toDataURL("image/png");
-                    document.body.appendChild(a);
-                    a.click();
-                    document.body.removeChild(a);
-                  }}
-                >
-                  Download
-                </Button>
-              </Flex>
-              <Flex>
-                <Button className={common.w100} color="ERROR" onClick={close}>
-                  Close
-                </Button>
-              </Flex>
-            </Garo>
-          </Saero>
-        );
-      },
-    });
-  };
   const buttonHandler = () => {
     if (LIMIT_USAGES.includes(props.type) && !ableTimes.includes(expireAfter))
       return openError("Please choose a valid expire time");
@@ -495,7 +390,7 @@ export default function Home(props: { type: HomeType }) {
         return openError("Text html cannot be more than 32768 characters.");
       return loader(input);
     }
-    if (props.type == "QRCODE") return qrcoder();
+    if (props.type == "QRCODE") return qrcoder(addModal, input);
   };
   const TitleElement = () => {
     if (props.type == "CUSTOM")
@@ -585,7 +480,7 @@ export default function Home(props: { type: HomeType }) {
 
   return (
     <>
-      <Header type={props.type} />
+      <Header type={props.type} featureType={props.featureType} />
       <Conatiner>
         <Saero gap={5}>
           <TitleElement />

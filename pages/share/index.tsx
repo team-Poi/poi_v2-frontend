@@ -8,7 +8,7 @@ export default function Page() {
       <Head>
         <meta property="og:title" content="poi.kr / Shorten URL" />
       </Head>
-      <Home type="URL" />
+      <Home type="URL" featureType="share" />
       <Features />
     </>
   );

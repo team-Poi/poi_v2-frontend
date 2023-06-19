@@ -6,6 +6,7 @@ import Link from "next/link";
 interface HeaderProps {
   type?: HomeType;
   href?: string;
+  featureType?: string;
 }
 
 export default function Header(props: HeaderProps) {
@@ -45,7 +46,7 @@ export default function Header(props: HeaderProps) {
             optCSS(props.type == "MAIN", styles.main)
           )}
         >
-          poi.kr
+          poi.kr{props.featureType ? " / " + props.featureType : ""}
         </div>
       </Link>
     </header>

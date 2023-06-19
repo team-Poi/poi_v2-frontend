@@ -8,7 +8,7 @@ export default function Page() {
       <Head>
         <meta property="og:title" content="poi.kr / Customized Path URL" />
       </Head>
-      <Home type="CUSTOM" />
+      <Home type="CUSTOM" featureType="share" />
       <Features />
     </>
   );
