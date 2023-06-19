@@ -29,6 +29,7 @@ import styles from "./../../styles/error.module.css";
 import NoSSR from "react-no-ssr";
 import { useRouter } from "next/router";
 import { Conatiner } from "@team.poi/ui";
+import Head from "next/head";
 
 const words = [`˙◠˙`, `ᴖ̈`, `(っ◞‸◟ c)`, `(ㅠ﹏ㅠ)`, `ꃋᴖꃋ`];
 
@@ -36,6 +37,10 @@ export default function Errors() {
   const router = useRouter();
   return (
     <Saero className={common.w100}>
+      <Head>
+        <meta property="og:title" content="poi.kr / No shortened link found" />
+        <title>poi.kr / No shortened link found</title>
+      </Head>
       <Headers type="ERROR" featureType="error" />
       <FullFlex className={common.w100}>
         <Conatiner>
