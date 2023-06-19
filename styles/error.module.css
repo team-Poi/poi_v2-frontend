@@ -1,0 +1,26 @@
+.errorFace {
+  font-size: 160px;
+  color: #dadce0;
+  margin: 2rem 0px;
+}
+
+@media (max-width: 720px) {
+  .errorFace {
+    font-size: 100px;
+  }
+}
+
+@media (max-width: 460px) {
+  .errorFace {
+    font-size: 60px;
+  }
+}
+
+.h1 {
+  margin-bottom: 0px;
+}
+
+.h2 {
+  margin-top: 0px;
+  margin-bottom: 3rem;
+}
