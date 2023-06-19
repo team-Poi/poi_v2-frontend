@@ -7,6 +7,7 @@ export default function HomePage() {
     <>
       <Head>
         <meta property="og:title" content="poi.kr / Share everything" />
+        <title>poi.kr / Share everything</title>
       </Head>
       <Header type={"MAIN"} />
       <Features />

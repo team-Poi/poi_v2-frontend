@@ -7,6 +7,7 @@ export default function Page() {
     <>
       <Head>
         <meta property="og:title" content="poi.kr / Share Text" />
+        <title>poi.kr / Share Text</title>
       </Head>
       <Home type="TEXT" featureType="share" />
       <Features />

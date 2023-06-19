@@ -25,6 +25,7 @@ export default function Page() {
     <>
       <Head>
         <meta property="og:title" content="poi.kr / Make QR Code" />
+        <title>poi.kr / Make QR Code</title>
       </Head>
       <Home type="QRCODE" featureType="share" />
       <Features />
