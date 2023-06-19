@@ -12,6 +12,7 @@
   "dependencies": {
     "@team.poi/ui": "^1.19.3",
     "@tinymce/tinymce-react": "^4.3.0",
+    "@tosspayments/payment-widget-sdk": "^0.8.0",
     "@types/node": "20.3.1",
     "@types/react-dom": "^18.2.5",
     "axios": "^1.4.0",
@@ -23,6 +24,7 @@
     "react-dom": "^18.2.0",
     "react-no-ssr": "^1.1.0",
     "typescript": "5.1.3",
+    "uid": "^2.0.2",
     "validator": "^13.9.0"
   },
   "devDependencies": {

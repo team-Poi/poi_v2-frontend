@@ -33,6 +33,7 @@ export default function Header(props: HeaderProps) {
               QRCODE: "qr_code_2",
               MAIN: "deployed_code",
               ERROR: "error",
+              PAY: "payments",
             }[props.type || "URL"]
           }
           className={styles.logo}
