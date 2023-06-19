@@ -1,46 +1,53 @@
-import { Icon } from "@team.poi/ui";
+import { Icon, classNames, optCSS } from "@team.poi/ui";
 import styles from "./style.module.css";
 import HomeType from "@/@types/homeType";
 import Link from "next/link";
 
 interface HeaderProps {
   type?: HomeType;
-  linked?: string;
+  href?: string;
 }
 
 export default function Header(props: HeaderProps) {
   return (
     <header className={styles.header}>
-      <Icon
-        animated
-        icon={
-          {
-            URL: "link",
-            TEXT: "description",
-            CUSTOM: "settings_suggest",
-            QRCODE: "qr_code_2",
-          }[props.type || "URL"]
-        }
-        className={styles.logo}
+      <Link
+        href={props.href || "/"}
         style={{
-          transform: props.type === "URL" ? "rotate(-45deg)" : "",
+          textDecoration: "none",
+          color: "white",
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "center",
         }}
-      />
-      <div className={styles.title}>
-        {props.linked ? (
-          <Link
-            href={props.linked}
-            style={{
-              textDecoration: "none",
-              color: "white",
-            }}
-          >
-            poi.kr
-          </Link>
-        ) : (
-          <>poi.kr</>
-        )}
-      </div>
+      >
+        <Icon
+          animated
+          icon={
+            {
+              URL: "link",
+              TEXT: "description",
+              CUSTOM: "settings_suggest",
+              QRCODE: "qr_code_2",
+              MAIN: "deployed_code",
+            }[props.type || "URL"]
+          }
+          className={styles.logo}
+          style={{
+            transform: props.type === "URL" ? "rotate(-45deg)" : "",
+            color: props.type == "MAIN" ? "var(--POI-UI-PRIMARY)" : "black",
+          }}
+        />
+        <div
+          className={classNames(
+            styles.title,
+            optCSS(props.type == "MAIN", styles.main)
+          )}
+        >
+          poi.kr
+        </div>
+      </Link>
     </header>
   );
 }

@@ -69,7 +69,7 @@ export default function TextView({
     );
   return (
     <>
-      <Header linked="/text" type="TEXT" />
+      <Header href="/text" type="TEXT" />
       <Saero
         className={classNames(common.centerFlex, common.w100, styles.saero)}
       >

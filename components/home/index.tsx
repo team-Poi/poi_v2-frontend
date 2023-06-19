@@ -536,62 +536,6 @@ export default function Home(props: { type: HomeType }) {
     if (props.type == "TEXT") return "Share";
     if (props.type == "QRCODE") return "QR Code it";
   };
-  const KorEngUsage = () => (
-    <Garo gap={7} className={classNames(common.w100, common.centerFlex)}>
-      {["URL", "TEXT"].includes(props.type) && (
-        <Flex>
-          <Garo
-            gap={7}
-            className={classNames(styles.optionContainers, common.centerFlex)}
-          >
-            <div>KOR</div>
-            <div
-              style={{
-                minWidth: "2.45rem",
-              }}
-            >
-              <Switch
-                value={isEng}
-                onChange={setIsEng}
-                style={{
-                  width: "100%",
-                }}
-              />
-            </div>
-            <div>ENG</div>
-          </Garo>
-        </Flex>
-      )}
-      <Flex>
-        <Garo
-          gap={7}
-          className={classNames(styles.optionContainers, common.centerFlex)}
-        >
-          <div>Usage</div>
-          <div
-            style={{
-              minWidth: "3rem",
-            }}
-          >
-            <select
-              className={styles.select}
-              value={maxUsage}
-              onChange={(e) => setMaxUsage(parseInt(e.target.value || "1"))}
-            >
-              <option value={1}>Once</option>
-              <option value={2}>2 Times</option>
-              <option value={5}>5 Times</option>
-              <option value={10}>10 Times</option>
-              <option value={50}>50 Times</option>
-              <option value={100}>100 Times</option>
-              <option value={500}>500 Times</option>
-              <option value={-1}>Unlimited</option>
-            </select>
-          </div>
-        </Garo>
-      </Flex>
-    </Garo>
-  );
   const ExpiresAfter = () => (
     <Garo gap={7} className={classNames(common.w100, common.centerFlex)}>
       <Flex>
@@ -726,9 +670,72 @@ export default function Home(props: { type: HomeType }) {
 
           {props.type == "QRCODE" ? null : (
             <>
-              {/* Kor, Eng / Usage */}
-              {/* Expires After */}
-              <KorEngUsage />
+              <Garo
+                gap={7}
+                className={classNames(common.w100, common.centerFlex)}
+              >
+                {["URL", "TEXT"].includes(props.type) && (
+                  <Flex>
+                    <Garo
+                      gap={7}
+                      className={classNames(
+                        styles.optionContainers,
+                        common.centerFlex
+                      )}
+                    >
+                      <div>KOR</div>
+                      <div
+                        style={{
+                          minWidth: "2.45rem",
+                        }}
+                      >
+                        <Switch
+                          value={isEng}
+                          onChange={setIsEng}
+                          style={{
+                            width: "100%",
+                          }}
+                          key={"ISENG"}
+                        />
+                      </div>
+                      <div>ENG</div>
+                    </Garo>
+                  </Flex>
+                )}
+                <Flex>
+                  <Garo
+                    gap={7}
+                    className={classNames(
+                      styles.optionContainers,
+                      common.centerFlex
+                    )}
+                  >
+                    <div>Usage</div>
+                    <div
+                      style={{
+                        minWidth: "3rem",
+                      }}
+                    >
+                      <select
+                        className={styles.select}
+                        value={maxUsage}
+                        onChange={(e) =>
+                          setMaxUsage(parseInt(e.target.value || "1"))
+                        }
+                      >
+                        <option value={1}>Once</option>
+                        <option value={2}>2 Times</option>
+                        <option value={5}>5 Times</option>
+                        <option value={10}>10 Times</option>
+                        <option value={50}>50 Times</option>
+                        <option value={100}>100 Times</option>
+                        <option value={500}>500 Times</option>
+                        <option value={-1}>Unlimited</option>
+                      </select>
+                    </div>
+                  </Garo>
+                </Flex>
+              </Garo>
               <ExpiresAfter />
             </>
           )}

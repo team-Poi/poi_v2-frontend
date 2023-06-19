@@ -1,14 +1,14 @@
 import Features from "@/components/features";
-import Home from "@/components/home";
+import Header from "@/components/header";
 import Head from "next/head";
 
-export default function Page() {
+export default function HomePage() {
   return (
     <>
       <Head>
-        <meta property="og:title" content="poi.kr / Shorten URL" />
+        <meta property="og:title" content="poi.kr / Share everything" />
       </Head>
-      <Home type="URL" />
+      <Header type={"MAIN"} />
       <Features />
     </>
   );
