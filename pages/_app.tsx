@@ -12,6 +12,8 @@ export default function App({ Component, pageProps }: AppProps) {
         <meta property="og:description" content="Share everything you have." />
         <meta property="og:site_name" content="poi.kr (포이)" />
         <meta property="og:locale" content="en_US" />
+        <link rel="manifest" href="/site.webmanifest" />
+        <link rel="icon" href="/favicon.ico" />
       </Head>
       <Component {...pageProps} />
     </ModalProvider>
