@@ -1,0 +1,82 @@
+.body {
+  width: 100%;
+  overflow: hidden;
+  height: calc(100vh - 80px);
+}
+
+.rootContainer {
+  width: 200%;
+  height: 100%;
+  box-sizing: border-box;
+  background-color: white;
+  border-bottom: 2px dashed rgba(0, 0, 0, 0.3);
+
+  display: flex;
+  flex-direction: row;
+
+  transition: all 0.3s ease;
+}
+
+.container {
+  width: 50%;
+  height: 100%;
+  position: relative;
+}
+
+@media screen and (max-width: 768px) {
+  .body {
+    height: calc(100vh - 64px);
+  }
+}
+
+.switch {
+  position: absolute;
+  right: 0.7rem;
+  bottom: 0.7rem;
+}
+
+.circle {
+  text-align: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 40px;
+  background-color: var(--POI-UI-PRIMARY);
+}
+
+.peer {
+  width: fit-content;
+  height: fit-content;
+  padding: 16px;
+  cursor: pointer;
+}
+
+.peerContent {
+  justify-content: center;
+  align-items: center;
+}
+
+.localContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow-y: hidden;
+}
+
+.peers {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-flow: row wrap;
+
+  overflow: hidden;
+}
+
+.myself {
+  position: absolute;
+  bottom: 0px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 8px;
+}

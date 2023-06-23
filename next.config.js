@@ -5,7 +5,7 @@ const withBundleAnalyzer = require("@next/bundle-analyzer")({
 
 const SERVER_URL = process.env.SERVER;
 const nextConfig = {
-  reactStrictMode: true,
+  reactStrictMode: false,
   rewrites: async () => {
     return [
       {

@@ -12,6 +12,14 @@
   width: 100%;
 }
 
+.h100 {
+  height: 100%;
+}
+
 .tcenter {
   text-align: center;
+}
+
+.bold {
+  font-family: var(--POI-UI-FONT-BOLD);
 }
