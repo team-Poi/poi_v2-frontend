@@ -1,28 +1,5 @@
 import Headers from "@/components/header";
-import dynamic from "next/dynamic";
-import Link from "next/link";
-const Button = dynamic(
-  () => import("@team.poi/ui/dist/cjs/components/Button"),
-  {
-    loading() {
-      return <div>Loading...</div>;
-    },
-  }
-);
-const Saero = dynamic(() => import("@team.poi/ui/dist/cjs/components/Column"), {
-  loading() {
-    return <div>Loading...</div>;
-  },
-});
-
-const FullFlex = dynamic(
-  () => import("@team.poi/ui/dist/cjs/components/FullFlex"),
-  {
-    loading() {
-      return <div>Loading...</div>;
-    },
-  }
-);
+import { Button, Saero, FullFlex } from "@/components/ui";
 import classNames from "@team.poi/ui/dist/cjs/utils/classNames";
 import common from "./../../styles/common.module.css";
 import styles from "./../../styles/error.module.css";

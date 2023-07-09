@@ -1,6 +1,5 @@
 import Features from "@/components/features";
 import Header from "@/components/header";
-import Home from "@/components/home";
 import Head from "next/head";
 
 export default function Page() {

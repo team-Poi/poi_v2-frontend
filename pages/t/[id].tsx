@@ -1,46 +1,13 @@
 import axios from "axios";
 import { GetServerSideProps } from "next";
-import dynamic from "next/dynamic";
 import common from "./../../styles/common.module.css";
 import classNames from "@team.poi/ui/dist/cjs/utils/classNames";
 import styles from "@/styles/text.module.css";
 import Head from "next/head";
 
-const Conatiner = dynamic(
-  () => import("@team.poi/ui/dist/cjs/components/Container"),
-  {
-    loading() {
-      return <div>Loading...</div>;
-    },
-  }
-);
-
-const Features = dynamic(() => import("@/components/features"), {
-  loading() {
-    return <div>Loading...</div>;
-  },
-});
-
-const Header = dynamic(() => import("@/components/header/index"), {
-  loading() {
-    return <div>Loading...</div>;
-  },
-});
-
-const Saero = dynamic(() => import("@team.poi/ui/dist/cjs/components/Column"), {
-  loading() {
-    return <div>Loading...</div>;
-  },
-});
-
-function HTMLRenderer(props: { html: string }) {
-  return (
-    <div
-      dangerouslySetInnerHTML={{ __html: props.html }}
-      className={styles.cont}
-    />
-  );
-}
+import { Saero, Conatiner, HTMLRenderer } from "@/components/ui";
+import Header from "@/components/header";
+import Features from "@/components/features";
 
 // https://ilydev.com:3070/t/JCrPfz
 export default function TextView({
