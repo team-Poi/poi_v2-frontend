@@ -123,6 +123,27 @@ export default function Features() {
             </Flex>
           </Garo>
         </Saero>
+        <h2>Information</h2>
+        <Saero gap={24}>
+          <Garo
+            gap={24}
+            className={classNames(common.centerFlex, common.w100, styles.fea)}
+          >
+            <Flex>
+              <Link
+                href={"https://ip.poi.kr/"}
+                style={{ textDecoration: "none" }}
+              >
+                <Saero
+                  className={classNames(common.centerFlex, styles.feature)}
+                >
+                  <Icon icon="language" animated size={48} />
+                  <h3>My IP Adress</h3>
+                </Saero>
+              </Link>
+            </Flex>
+          </Garo>
+        </Saero>
       </div>
     </Conatiner>
   );
