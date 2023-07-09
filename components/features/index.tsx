@@ -107,21 +107,6 @@ export default function Features() {
               </Link>
             </Flex>
           </Garo>
-          <Garo
-            gap={24}
-            className={classNames(common.centerFlex, common.w100, styles.fea)}
-          >
-            <Flex>
-              <Link href={"/share/drop"} style={{ textDecoration: "none" }}>
-                <Saero
-                  className={classNames(common.centerFlex, styles.feature)}
-                >
-                  <Icon icon="water_drop" animated size={48} />
-                  <h3>Poi drop</h3>
-                </Saero>
-              </Link>
-            </Flex>
-          </Garo>
         </Saero>
         <h2>Information</h2>
         <Saero gap={24}>
@@ -130,10 +115,7 @@ export default function Features() {
             className={classNames(common.centerFlex, common.w100, styles.fea)}
           >
             <Flex>
-              <Link
-                href={"https://ip.poi.kr/"}
-                style={{ textDecoration: "none" }}
-              >
+              <Link href={"/ip"} style={{ textDecoration: "none" }}>
                 <Saero
                   className={classNames(common.centerFlex, styles.feature)}
                 >

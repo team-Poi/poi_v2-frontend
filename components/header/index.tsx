@@ -79,6 +79,7 @@ export default function Header(props: HeaderProps) {
               ERROR: "error",
               PAY: "payments",
               DROP: "water_drop",
+              IP: "language",
             }[props.type || "URL"]
           }
           className={styles.logo}

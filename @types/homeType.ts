@@ -6,6 +6,7 @@ type HomeType =
   | "MAIN"
   | "ERROR"
   | "PAY"
-  | "DROP";
+  | "DROP"
+  | "IP";
 
 export default HomeType;
