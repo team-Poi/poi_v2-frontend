@@ -3,7 +3,7 @@ import { GetServerSideProps } from "next";
 import requestIP from "request-ip";
 import axios from "axios";
 import Header from "@/components/header";
-import { Garo, Saero, FullFlex } from "@/components/ui";
+import { Garo, Saero, FullFlex } from "@team.poi/ui";
 import { useEffect, useState } from "react";
 import Head from "next/head";
 import Features from "@/components/features";

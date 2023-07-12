@@ -1,33 +1,5 @@
 import dynamic from "next/dynamic";
-
-const Conatiner = dynamic(
-  () => import("@team.poi/ui/dist/cjs/components/Container"),
-  {
-    loading() {
-      return <div>Loading...</div>;
-    },
-  }
-);
-const Flex = dynamic(() => import("@team.poi/ui/dist/cjs/components/Flex"), {
-  loading() {
-    return <div>Loading...</div>;
-  },
-});
-const Saero = dynamic(() => import("@team.poi/ui/dist/cjs/components/Column"), {
-  loading() {
-    return <div>Loading...</div>;
-  },
-});
-const Icon = dynamic(() => import("@team.poi/ui/dist/cjs/components/Icon"), {
-  loading() {
-    return <div>Loading...</div>;
-  },
-});
-const Garo = dynamic(() => import("@team.poi/ui/dist/cjs/components/Row"), {
-  loading() {
-    return <div>Loading...</div>;
-  },
-});
+import { Conatiner, Flex, Saero, Icon, Garo } from "@team.poi/ui";
 
 import classNames from "@team.poi/ui/dist/cjs/utils/classNames";
 import common from "./../../styles/common.module.css";

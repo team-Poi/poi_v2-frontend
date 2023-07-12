@@ -1,81 +1,5 @@
 import dynamic from "next/dynamic";
 
-const Header = dynamic(() => import("@/components/header/index"), {
-  loading() {
-    return <div>Loading...</div>;
-  },
-});
-const Button = dynamic(
-  () => import("@team.poi/ui/dist/cjs/components/Button"),
-  {
-    loading() {
-      return <div>Loading...</div>;
-    },
-  }
-);
-const Switch = dynamic(
-  () => import("@team.poi/ui/dist/cjs/components/Switch"),
-  {
-    loading() {
-      return <div>Loading...</div>;
-    },
-  }
-);
-const Saero = dynamic(() => import("@team.poi/ui/dist/cjs/components/Column"), {
-  loading() {
-    return <div>Loading...</div>;
-  },
-});
-const Garo = dynamic(() => import("@team.poi/ui/dist/cjs/components/Row"), {
-  loading() {
-    return <div>Loading...</div>;
-  },
-});
-const Conatiner = dynamic(
-  () => import("@team.poi/ui/dist/cjs/components/Container"),
-  {
-    loading() {
-      return <div>Loading...</div>;
-    },
-  }
-);
-const Flex = dynamic(() => import("@team.poi/ui/dist/cjs/components/Flex"), {
-  loading() {
-    return <div>Loading...</div>;
-  },
-});
-const FullFlex = dynamic(
-  () => import("@team.poi/ui/dist/cjs/components/FullFlex"),
-  {
-    loading() {
-      return <div>Loading...</div>;
-    },
-  }
-);
-const Icon = dynamic(() => import("@team.poi/ui/dist/cjs/components/Icon"), {
-  loading() {
-    return <div>Loading...</div>;
-  },
-});
-const Input = dynamic(() => import("@team.poi/ui/dist/cjs/components/Input"), {
-  loading() {
-    return <div>Loading...</div>;
-  },
-});
-const Loading = dynamic(
-  () => import("@team.poi/ui/dist/cjs/components/Loading"),
-  {
-    loading() {
-      return <div>Loading...</div>;
-    },
-  }
-);
-const Editor = dynamic(() => import("./../Editor/index"), {
-  loading() {
-    return <div>Loading...</div>;
-  },
-});
-
 import classNames from "@team.poi/ui/dist/cjs/utils/classNames";
 import { useModal } from "@team.poi/ui/dist/cjs/hooks/Modal";
 import common from "./../../styles/common.module.css";
@@ -88,6 +12,25 @@ import HomeType from "@/@types/homeType";
 import { optCSS } from "@team.poi/ui";
 import { useRouter } from "next/router";
 import qrcoder from "@/utils/qrcoder";
+import {
+  Saero,
+  Icon,
+  Garo,
+  Flex,
+  Button,
+  Input,
+  Loading,
+  FullFlex,
+  Conatiner,
+  Switch,
+} from "@team.poi/ui";
+import Header from "@/components/header";
+
+const Editor = dynamic(() => import("./../Editor/index"), {
+  loading() {
+    return <div>Loading...</div>;
+  },
+});
 
 export default function Home(props: { type: HomeType; featureType?: string }) {
   const [input, setInput] = useState("");
