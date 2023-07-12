@@ -5,9 +5,13 @@ import classNames from "@team.poi/ui/dist/cjs/utils/classNames";
 import styles from "@/styles/text.module.css";
 import Head from "next/head";
 
-import { Saero, Conatiner, HTMLRenderer } from "@/components/ui";
+import { Saero, Conatiner } from "@team.poi/ui";
 import Header from "@/components/header";
 import Features from "@/components/features";
+
+export function HTMLRenderer(props: { html: string }) {
+  return <div dangerouslySetInnerHTML={{ __html: props.html }} />;
+}
 
 // https://ilydev.com:3070/t/JCrPfz
 export default function TextView({
